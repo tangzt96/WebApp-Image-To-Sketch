@@ -84,8 +84,8 @@ if rad == "QR Helper":
         if st.button("Download Image"):
             if uploaded_file:
                 sketchImage, picture = convertQR(uploaded_file)
-                image.image(sketchImage)
-                result = Image.fromarray(sketchImage)
+                # image.image(sketchImage)
+                result = Image.open(sketchImage)
                 st.success("Press the below Link")
                 st.markdown(get_image_download_link(result,"sketched.jpg",'Download '+"Sketched.jpg"), unsafe_allow_html=True)
             else:
