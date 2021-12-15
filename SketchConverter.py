@@ -42,7 +42,7 @@ def convertQR(img):
     byteArr = byteIO.getvalue()
     #display(img)
     
-    return byteArr
+    return byteArr,sketchImage
     
 st.title("Smart Gym Landing")
 
@@ -71,7 +71,7 @@ if rad == "QR Helper":
             with st.spinner('Converting...'):
                 
                 # sketchImage = get_sketched_image(uploaded_file.read())
-                sketchImage = convertQR(uploaded_file)
+                sketchImage , picture = convertQR(uploaded_file)
 
                 time.sleep(1)
                 #image.image(sketchImage)
@@ -83,11 +83,11 @@ if rad == "QR Helper":
     if uploaded_file is not None:
         if st.button("Download Image"):
             if uploaded_file:
-                sketchedImage = convertQR(uploaded_file)
-                #image.image(sketchedImage)
-                #result = Image.fromarray(sketchedImage)
+                sketchedImage, picture = convertQR(uploaded_file)
+                image.image(picture)
+                result = Image.fromarray(picture)
                 st.success("Press the below Link")
-                st.markdown(get_image_download_link(sketchedImage,"sketched.jpg",'Download '+"Sketched.jpg"), unsafe_allow_html=True)
+                st.markdown(get_image_download_link(result,"sketched.jpg",'Download '+"Sketched.jpg"), unsafe_allow_html=True)
             else:
                 st.error("Please upload a image first")
 
