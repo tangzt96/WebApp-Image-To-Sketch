@@ -76,7 +76,7 @@ if st.sidebar.button("Enhance QR"):
         with st.spinner('Converting...'):
             
             # sketchImage = get_sketched_image(uploaded_file.read())
-            sketchImage = convertQR(uploaded_file.read())
+            sketchImage = convertQR(uploaded_file)
 
             time.sleep(2)
             #image.image(sketchImage)

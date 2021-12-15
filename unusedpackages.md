@@ -5,3 +5,6 @@ tesseract-ocr
 libtesseract-dev
 libtesseract4
 tesseract-ocr-all
+
+numpy==1.20.2
+opencv-python==4.5.3.56
