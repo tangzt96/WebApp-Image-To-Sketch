@@ -95,19 +95,19 @@ if rad == "About SmartGym":
     st.title("SmartGym – Every Citizen’s #1 Fitness Lifestyle Companion")
     st.markdown("SmartGym is a holistic fitness data platform that provides users with fitness insights measured through a series of connected sensors built into gym equipment. These sensors are currently installed on three types of gym equipment: 1) weight stack machines, 2) treadmills and 3) weighing machines. SmartGym equipment is currently deployed in three community gyms across Singapore – Our Tampines Hub, Jurong East and Heartbeat @ Bedok.")
     st.subheader("Weight Stack Machines")
-    st.text("The SmartGym sensors are installed within the covers of the weight stack exteriors, are visible to users and help detect the weights lifted to accurately compute the number of repetitions done.")
+    st.markdown("The SmartGym sensors are installed within the covers of the weight stack exteriors, are visible to users and help detect the weights lifted to accurately compute the number of repetitions done.")
     weight_stack_img = Image.open("smartgym-shoulder-press.png")
     st.image(weight_stack_img)
 
     st.subheader("How Will SmartGym Benefit Users?")
-    st.text("Where SmartGym separates itself from regular gym equipment is its ability to accurately monitor and store users’ data. In a typical gym, fitness equipment can only display workout information while it is being used and the information does not get stored thereafter. In contrast, SmartGym stores workout information that can be viewed at any time at any of the three SmartGym kiosks.")
+    st.markdown("Where SmartGym separates itself from regular gym equipment is its ability to accurately monitor and store users’ data. In a typical gym, fitness equipment can only display workout information while it is being used and the information does not get stored thereafter. In contrast, SmartGym stores workout information that can be viewed at any time at any of the three SmartGym kiosks.")
     console_img = Image.open("smartgym-console.png")
     st.image(console_img)
 
 
 if rad == "Campaigns":
     st.title("Current Campaigns in SmartGym!")
-    st.text("We have awesome monthly leaderboard challenge and campaigns with attractive prizes")
+    st.markdown("We have awesome monthly leaderboard challenge and campaigns with attractive prizes")
     st.subheader("1 for 1 promotion")
     promo_img = Image.open("promo.jpeg")
     st.image(promo_img)
