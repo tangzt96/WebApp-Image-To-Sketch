@@ -93,7 +93,7 @@ if rad == "QR Helper":
 
 if rad == "About SmartGym":
     st.title("SmartGym – Every Citizen’s #1 Fitness Lifestyle Companion")
-    st.text("SmartGym is a holistic fitness data platform that provides users with fitness insights measured through a series of connected sensors built into gym equipment. These sensors are currently installed on three types of gym equipment: 1) weight stack machines, 2) treadmills and 3) weighing machines. SmartGym equipment is currently deployed in three community gyms across Singapore – Our Tampines Hub, Jurong East and Heartbeat @ Bedok.")
+    st.markdown("SmartGym is a holistic fitness data platform that provides users with fitness insights measured through a series of connected sensors built into gym equipment. These sensors are currently installed on three types of gym equipment: 1) weight stack machines, 2) treadmills and 3) weighing machines. SmartGym equipment is currently deployed in three community gyms across Singapore – Our Tampines Hub, Jurong East and Heartbeat @ Bedok.")
     st.subheader("Weight Stack Machines")
     st.text("The SmartGym sensors are installed within the covers of the weight stack exteriors, are visible to users and help detect the weights lifted to accurately compute the number of repetitions done.")
     weight_stack_img = Image.open("smartgym-shoulder-press.png")
