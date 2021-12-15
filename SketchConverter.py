@@ -4,6 +4,7 @@ import time
 from PIL import Image
 import numpy as np
 import io
+from io import BytesIO
 import base64
 from pyzbar.pyzbar import decode
 from PIL import Image
@@ -85,12 +86,12 @@ if rad == "QR Helper":
             if uploaded_file:
                 sketchImage, picture = convertQR(uploaded_file)
                 # image.image(sketchImage)
-                byteIO = io.BytesIO()
-                result = Image.open(byteIO(sketchImage))
+                result = Image.open(BytesIO(sketchImage))
                 st.success("Press the below Link")
                 st.markdown(get_image_download_link(result,"sketched.jpg",'Download '+"Sketched.jpg"), unsafe_allow_html=True)
             else:
                 st.error("Please upload a image first")
+
 
 if rad == "About SmartGym":
     st.title("SmartGym – Every Citizen’s #1 Fitness Lifestyle Companion")
