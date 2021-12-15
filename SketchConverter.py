@@ -12,7 +12,7 @@ import qrcode
 
 st.set_page_config(
      page_title="QR code enhancement",
-     initial_sidebar_state="expanded",
+     initial_sidebar_state="auto",
 )
 
 def get_image_download_link(img,filename,text):
@@ -61,11 +61,11 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 if rad == "QR Helper":
     img = Image.open("screenshot_guide.png")
     image = st.image(img)
-    uploaded_file = st.sidebar.file_uploader(" ", type=['png', 'jpg', 'jpeg'])
-    if st.sidebar.button("Enhance QR"):
+    uploaded_file = st.file_uploader(" ", type=['png', 'jpg', 'jpeg'])
+    if st.button("Enhance QR"):
         
         if uploaded_file is None:
-            st.sidebar.error("Please upload a QR to convert")
+            st.error("Please upload a QR to convert")
             
         else:
             with st.spinner('Converting...'):
@@ -78,18 +78,18 @@ if rad == "QR Helper":
                 st.success('Converted!')
                 st.success('Click "Download Image" below the QR image to download the image, or just flash the QR at any of our tablet console')
                 image = st.image(sketchImage)
-                st.sidebar.success("Please scroll down for your new QR!")
+                st.success("Please scroll down for your new QR!")
 
-
-    if st.button("Download Image"):
-        if uploaded_file:
-            sketchedImage = convertQR(uploaded_file.read())
-            image.image(sketchedImage)
-            result = Image.fromarray(sketchedImage)
-            st.success("Press the below Link")
-            st.markdown(get_image_download_link(result,"sketched.jpg",'Download '+"Sketched.jpg"), unsafe_allow_html=True)
-        else:
-            st.error("Please upload a image first")
+    if uploaded_file is not None:
+        if st.button("Download Image"):
+            if uploaded_file:
+                sketchedImage = convertQR(uploaded_file)
+                image.image(sketchedImage)
+                result = Image.fromarray(sketchedImage)
+                st.success("Press the below Link")
+                st.markdown(get_image_download_link(result,"sketched.jpg",'Download '+"Sketched.jpg"), unsafe_allow_html=True)
+            else:
+                st.error("Please upload a image first")
 
 if rad == "About SmartGym":
     st.title("SmartGym – Every Citizen’s #1 Fitness Lifestyle Companion")
