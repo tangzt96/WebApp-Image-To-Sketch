@@ -22,18 +22,6 @@ def get_image_download_link(img,filename,text):
     href =  f'<a href="data:file/txt;base64,{img_str}" download="{filename}">{text}</a>'
     return href
 
-# def get_sketched_image(img):
-    
-#     file_bytes = np.asarray(bytearray(img), dtype=np.uint8)
-#     cvImage = cv2.imdecode(file_bytes, 1)
-        
-#     #cvImage = cv2.imread(Image.open(uploaded_file))
-#     cvImageGrayScale = cv2.cvtColor(cvImage, cv2.COLOR_BGR2GRAY)
-#     cvImageGrayScaleInversion = cv2.bitwise_not(cvImageGrayScale)
-#     cvImageBlured = cv2.GaussianBlur(cvImageGrayScaleInversion, (21, 21), sigmaX = 0, sigmaY = 0)
-#     sketchImage = cv2.divide(cvImageGrayScale, 255 - cvImageBlured, scale = 256)
-    
-#     return sketchImage
 
 def convertQR(img):
     data = decode(Image.open(img))
@@ -56,9 +44,11 @@ def convertQR(img):
     
     return byteArr
     
-st.title("Enhance your ActiveSG QR Code")
+st.title("Smart Gym Landing")
 
-st.sidebar.title("ScreenShot and Upload Your ActiveSG QR code")
+st.sidebar.title("Welcome to SmartGym Web")
+
+rad = st.sidebar.radio("Navigation",["QR Helper", "About SmartGym","Campaigns"])
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
@@ -69,32 +59,72 @@ uploaded_file = st.sidebar.file_uploader(" ", type=['png', 'jpg', 'jpeg'])
 
 # if uploaded_file is not None:  
 #     image.image(uploaded_file)
-
-if st.sidebar.button("Enhance QR"):
-     
-     if uploaded_file is None:
-         st.sidebar.error("Please upload a QR to convert")
+if rad == "QR Helper":
+    if st.sidebar.button("Enhance QR"):
         
-     else:
-        with st.spinner('Converting...'):
+        if uploaded_file is None:
+            st.sidebar.error("Please upload a QR to convert")
             
-            # sketchImage = get_sketched_image(uploaded_file.read())
-            sketchImage = convertQR(uploaded_file)
+        else:
+            with st.spinner('Converting...'):
+                
+                # sketchImage = get_sketched_image(uploaded_file.read())
+                sketchImage = convertQR(uploaded_file)
 
-            time.sleep(2)
-            #image.image(sketchImage)
-            st.success('Converted!')
-            st.success('Click "Download Image" below the QR image to download the image, or just flash the QR at any of our tablet console')
-            image = st.image(sketchImage)
-            st.sidebar.success("Please scroll down for your new QR!")
+                time.sleep(1)
+                #image.image(sketchImage)
+                st.success('Converted!')
+                st.success('Click "Download Image" below the QR image to download the image, or just flash the QR at any of our tablet console')
+                image = st.image(sketchImage)
+                st.sidebar.success("Please scroll down for your new QR!")
 
 
-if st.button("Download Image"):
-    if uploaded_file:
-        sketchedImage = convertQR(uploaded_file.read())
-        image.image(sketchedImage)
-        result = Image.fromarray(sketchedImage)
-        st.success("Press the below Link")
-        st.markdown(get_image_download_link(result,"sketched.jpg",'Download '+"Sketched.jpg"), unsafe_allow_html=True)
-    else:
-        st.error("Please upload a image first")
+    if st.button("Download Image"):
+        if uploaded_file:
+            sketchedImage = convertQR(uploaded_file.read())
+            image.image(sketchedImage)
+            result = Image.fromarray(sketchedImage)
+            st.success("Press the below Link")
+            st.markdown(get_image_download_link(result,"sketched.jpg",'Download '+"Sketched.jpg"), unsafe_allow_html=True)
+        else:
+            st.error("Please upload a image first")
+
+if rad == "About SmartGym":
+    st.markdown(
+                """## Contributions
+                    This an open source project and you are very welcome to **contribute** your awesome
+                    comments, questions, resources and apps as
+                    [issues](https://github.com/MarcSkovMadsen/awesome-streamlit/issues) or
+                    [pull requests](https://github.com/MarcSkovMadsen/awesome-streamlit/pulls)
+                    to the [source code](https://github.com/MarcSkovMadsen/awesome-streamlit).
+                    For more details see the [Contribute](https://github.com/marcskovmadsen/awesome-streamlit#contribute) section of the README file.
+                    ## The Developer
+                    This project is developed by Marc Skov Madsen. You can learn more about me at
+                    [datamodelsanalytics.com](https://datamodelsanalytics.com).
+                    Feel free to reach out if you wan't to join the project as a developer. You can find my contact details at [datamodelsanalytics.com](https://datamodelsanalytics.com).
+                    [<img src="https://github.com/MarcSkovMadsen/awesome-streamlit/blob/master/assets/images/datamodelsanalytics.png?raw=true" style="max-width: 700px">](https://datamodelsanalytics.com)
+                    """,
+                                unsafe_allow_html=True,
+            )
+    weight_stack_img = Image.open("smartgym-shoulder-press.png")
+    st.image(weight_stack_img)
+
+if rad == "Campaigns":
+    st.markdown(
+                """## Contributions
+                    This an open source project and you are very welcome to **contribute** your awesome
+                    comments, questions, resources and apps as
+                    [issues](https://github.com/MarcSkovMadsen/awesome-streamlit/issues) or
+                    [pull requests](https://github.com/MarcSkovMadsen/awesome-streamlit/pulls)
+                    to the [source code](https://github.com/MarcSkovMadsen/awesome-streamlit).
+                    For more details see the [Contribute](https://github.com/marcskovmadsen/awesome-streamlit#contribute) section of the README file.
+                    ## The Developer
+                    This project is developed by Marc Skov Madsen. You can learn more about me at
+                    [datamodelsanalytics.com](https://datamodelsanalytics.com).
+                    Feel free to reach out if you wan't to join the project as a developer. You can find my contact details at [datamodelsanalytics.com](https://datamodelsanalytics.com).
+                    [<img src="https://github.com/MarcSkovMadsen/awesome-streamlit/blob/master/assets/images/datamodelsanalytics.png?raw=true" style="max-width: 700px">](https://datamodelsanalytics.com)
+                    """,
+                                unsafe_allow_html=True,
+            )
+    promo_img = Image.open("promo.jpeg")
+    st.image(promo_img)
