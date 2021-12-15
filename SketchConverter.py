@@ -26,6 +26,8 @@ def get_image_download_link(img,filename,text):
 
 def convertQR(img):
     data = decode(Image.open(img))
+    if len(data) < 1:
+        return False
     print(data[0])
     qr_bytes = data[0][0]
     encoding = 'utf-8'
@@ -43,7 +45,7 @@ def convertQR(img):
     byteArr = byteIO.getvalue()
     #display(img)
     
-    return byteArr,sketchImage
+    return byteArr 
     
 st.title("Smart Gym Landing")
 
@@ -72,19 +74,21 @@ if rad == "QR Helper":
             with st.spinner('Converting...'):
                 
                 # sketchImage = get_sketched_image(uploaded_file.read())
-                sketchImage , picture = convertQR(uploaded_file)
-
-                time.sleep(1)
-                #image.image(sketchImage)
-                st.success('Converted!')
-                st.success('Click "Download Image" below the QR image to download the image, or just flash the QR at any of our tablet console')
-                image = st.image(sketchImage)
-                st.success("Please scroll down for your new QR!")
+                sketchImage = convertQR(uploaded_file)
+                if sketchImage != False:
+                    time.sleep(1)
+                    #image.image(sketchImage)
+                    st.success('Converted!')
+                    st.success('Click "Download Image" below the QR image to download the image, or just flash the QR at any of our tablet console')
+                    image = st.image(sketchImage)
+                    st.success("Please scroll down for your new QR!")
+                else:
+                    st.error("No QR code detected, Please upload image with QR Code")
 
     if uploaded_file is not None:
         if st.button("Download Image"):
             if uploaded_file:
-                sketchImage, picture = convertQR(uploaded_file)
+                sketchImage = convertQR(uploaded_file)
                 # image.image(sketchImage)
                 result = Image.open(BytesIO(sketchImage))
                 st.success("Press the below Link")
