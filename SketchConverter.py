@@ -49,9 +49,12 @@ def convertQR(img):
     qr.add_data(claims_string)
     qr.make(fit = True)
     sketchImage = qr.make_image(fill = "black" , back_color = "white")  # qrcode.image.pil.PilImage
+    byteIO = io.BytesIO()
+    sketchedImage.save(byteIO, format='PNG')
+    byteArr = byteIO.getvalue()
     #display(img)
     
-    return sketchImage
+    return byteArr
     
 st.title("Enhance your ActiveSG QR Code")
 
