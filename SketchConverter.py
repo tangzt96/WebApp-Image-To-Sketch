@@ -50,7 +50,7 @@ def convertQR(img):
     qr.make(fit = True)
     sketchImage = qr.make_image(fill = "black" , back_color = "white")  # qrcode.image.pil.PilImage
     byteIO = io.BytesIO()
-    sketchedImage.save(byteIO, format='PNG')
+    sketchImage.save(byteIO, format='PNG')
     byteArr = byteIO.getvalue()
     #display(img)
     
