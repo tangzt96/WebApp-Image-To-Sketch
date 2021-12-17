@@ -34,8 +34,10 @@ def convertQR(img):
     qr_string = str(qr_bytes, encoding)
     qr_content = qr_string.split(".")
     active_id = qr_content[1]
-    active_id = "ACTIVESGV1|" + active_id
-    claims = base64.b64decode(active_id+ '=' * (-len(active_id) % 4))
+    new_id = "ACTIVESGV1|" + active_id
+    print(active_id)
+    print(new_id)
+    claims = base64.b64decode(new_id+ '=' * (-len(new_id) % 4))
     claims_string = str(claims, encoding)
     qr = qrcode.QRCode()
     qr.add_data(claims_string)
