@@ -48,6 +48,33 @@ def convertQR(img):
     #display(img)
     
     return byteArr 
+
+def shortenQR(img):
+    data = decode(Image.open(img))
+    if len(data) < 1:
+        return False
+    print(data[0])
+    qr_bytes = data[0][0]
+    encoding = 'utf-8'
+    qr_string = str(qr_bytes, encoding)
+    qr_content = qr_string.split(".")
+    active_id = qr_content[1]
+    # claims = base64.b64decode(active_id+ '=' * (-len(active_id) % 4))
+    # claims_string = str(claims, encoding)
+    claims_string = "ACTIVESGV1|."+ active_id + "."
+    print(claims_string)
+
+    #creating the QR code
+    qr = qrcode.QRCode()
+    qr.add_data(claims_string)
+    qr.make(fit = True)
+    sketchImage = qr.make_image(fill = "black" , back_color = "white")  # qrcode.image.pil.PilImage
+    byteIO = io.BytesIO()
+    sketchImage.save(byteIO, format='PNG')
+    byteArr = byteIO.getvalue()
+    #display(img)
+    
+    return byteArr 
     
 st.title("Smart Gym Landing")
 
@@ -75,8 +102,8 @@ if rad == "QR Helper":
         else:
             with st.spinner('Converting...'):
                 
-                # sketchImage = get_sketched_image(uploaded_file.read())
-                sketchImage = convertQR(uploaded_file)
+                # sketchImage = convertQR(uploaded_file)
+                sketchImage = shortenQR(uploaded_file)
                 if sketchImage != False:
                     time.sleep(1)
                     #image.image(sketchImage)
@@ -90,7 +117,8 @@ if rad == "QR Helper":
     if uploaded_file is not None:
         if st.button("Download Image"):
             if uploaded_file:
-                sketchImage = convertQR(uploaded_file)
+                #sketchImage = convertQR(uploaded_file)
+                sketchImage = shortenQR(uploaded_file)
                 image = st.image(sketchImage)
                 result = Image.open(BytesIO(sketchImage))
                 st.success("Press the below Link")
